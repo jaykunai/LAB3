@@ -22,7 +22,9 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "input_processing.h"
+#include "input_reading.h"
+#include "fsm_automatic.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -75,29 +77,28 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
   /* USER CODE END Init */
 
   /* Configure the system clock */
   SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-
+  HAL_TIM_Base_Start_IT(&htim2);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  status = INIT;
   while (1)
   {
     /* USER CODE END WHILE */
-
+	  fsm_automatic_run();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -198,7 +199,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_CHECK_Pin|LED_GREEN_Pin|LED_YELLOW_Pin|LED_RED_Pin
-                          |LED_GREEN1_Pin|LED_YELLOW1_Pin, GPIO_PIN_RESET);
+                          |LED_GREEN1_Pin|LED_YELLOW1_Pin|LED_RED1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOB, SEG0_Pin|SEG1_Pin|SEG2_Pin|SEG10_Pin
@@ -207,9 +208,9 @@ static void MX_GPIO_Init(void)
                           |SEG8_Pin|SEG9_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pins : LED_CHECK_Pin LED_GREEN_Pin LED_YELLOW_Pin LED_RED_Pin
-                           LED_GREEN1_Pin LED_YELLOW1_Pin */
+                           LED_GREEN1_Pin LED_YELLOW1_Pin LED_RED1_Pin */
   GPIO_InitStruct.Pin = LED_CHECK_Pin|LED_GREEN_Pin|LED_YELLOW_Pin|LED_RED_Pin
-                          |LED_GREEN1_Pin|LED_YELLOW1_Pin;
+                          |LED_GREEN1_Pin|LED_YELLOW1_Pin|LED_RED1_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -228,16 +229,15 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : LED_RED1_Pin BUTTON0_Pin BUTTON1_Pin BUTTON2_Pin */
-  GPIO_InitStruct.Pin = LED_RED1_Pin|BUTTON0_Pin|BUTTON1_Pin|BUTTON2_Pin;
+  /*Configure GPIO pins : BUTTON_0_Pin BUTTON_1_Pin BUTTON_2_Pin */
+  GPIO_InitStruct.Pin = BUTTON_0_Pin|BUTTON_1_Pin|BUTTON_2_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
 }
 
 /* USER CODE BEGIN 4 */
-
 /* USER CODE END 4 */
 
 /**
