@@ -1,1 +1,5 @@
-led_display.c:12:6:displayLed7Seg_1	24	static
+led_display.c:13:6:display7SEG	24	static
+led_display.c:21:6:update7SEG	16	static
+led_display.c:51:6:updateClockBuffer	4	static
+led_display.c:69:6:updateTimeRoad	4	static
+led_display.c:86:6:display	8	static

@@ -9,12 +9,15 @@
 #define INC_LED_DISPLAY_H_
 
 #include "main.h"
+#include "global.h"
 #define MAX_MATRIX 10
+#define MAX_BUFF 4
 
-void displayLed7Seg_1(int number);
-void displayLED7Seg_2(int number);
+void display7SEG(int number);
+void display();
+void updateTimeRoad();
 
-void update7Seg_1(int number);
+void update7Seg(int index);
 
 
 #endif /* INC_LED_DISPLAY_H_ */
