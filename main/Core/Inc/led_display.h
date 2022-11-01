@@ -14,6 +14,7 @@
 #define MAX_BUFF 4
 
 void display7SEG(int number);
+void updateClockBuffer(int, int);
 void scanLed();
 
 #endif /* INC_LED_DISPLAY_H_ */
