@@ -14,8 +14,8 @@ void fsm_automatic_run(){
 		setTimer1(defaultTimeGreen*1000);
 		timeRed = defaultTimeRed;
 		timeGreen = defaultTimeGreen;
-		updateClockBuffer(timeRed--, timeGreen--);
 		setTimer2(1000);
+		updateClockBuffer(timeRed--, timeGreen--);
 		break;
 	case AUTO_RED_GREEN:
 		setTrafficRed();
@@ -68,7 +68,7 @@ void fsm_automatic_run(){
 		setTrafficRed1();
 		if(timer1_flag == 1){
 			status = AUTO_RED_GREEN;
-			setTimer1(timeGreen*1000);
+			setTimer1(defaultTimeGreen*1000);
 			timeRed = defaultTimeRed;
 			timeGreen = defaultTimeGreen;
 			updateClockBuffer(timeRed--, timeGreen--);

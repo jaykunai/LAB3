@@ -121,23 +121,23 @@ void fsm_automatic_run(){
  800019a:	681b      	ldr	r3, [r3, #0]
  800019c:	4a9a      	ldr	r2, [pc, #616]	; (8000408 <fsm_automatic_run+0x2bc>)
  800019e:	6013      	str	r3, [r2, #0]
-		updateClockBuffer(timeRed--, timeGreen--);
- 80001a0:	4b98      	ldr	r3, [pc, #608]	; (8000404 <fsm_automatic_run+0x2b8>)
- 80001a2:	681b      	ldr	r3, [r3, #0]
- 80001a4:	1e5a      	subs	r2, r3, #1
- 80001a6:	4997      	ldr	r1, [pc, #604]	; (8000404 <fsm_automatic_run+0x2b8>)
- 80001a8:	600a      	str	r2, [r1, #0]
- 80001aa:	4a97      	ldr	r2, [pc, #604]	; (8000408 <fsm_automatic_run+0x2bc>)
- 80001ac:	6812      	ldr	r2, [r2, #0]
- 80001ae:	1e51      	subs	r1, r2, #1
- 80001b0:	4895      	ldr	r0, [pc, #596]	; (8000408 <fsm_automatic_run+0x2bc>)
- 80001b2:	6001      	str	r1, [r0, #0]
- 80001b4:	4611      	mov	r1, r2
- 80001b6:	4618      	mov	r0, r3
- 80001b8:	f000 f9ae 	bl	8000518 <updateClockBuffer>
 		setTimer2(1000);
- 80001bc:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
- 80001c0:	f000 fc2a 	bl	8000a18 <setTimer2>
+ 80001a0:	f44f 707a 	mov.w	r0, #1000	; 0x3e8
+ 80001a4:	f000 fc38 	bl	8000a18 <setTimer2>
+		updateClockBuffer(timeRed--, timeGreen--);
+ 80001a8:	4b96      	ldr	r3, [pc, #600]	; (8000404 <fsm_automatic_run+0x2b8>)
+ 80001aa:	681b      	ldr	r3, [r3, #0]
+ 80001ac:	1e5a      	subs	r2, r3, #1
+ 80001ae:	4995      	ldr	r1, [pc, #596]	; (8000404 <fsm_automatic_run+0x2b8>)
+ 80001b0:	600a      	str	r2, [r1, #0]
+ 80001b2:	4a95      	ldr	r2, [pc, #596]	; (8000408 <fsm_automatic_run+0x2bc>)
+ 80001b4:	6812      	ldr	r2, [r2, #0]
+ 80001b6:	1e51      	subs	r1, r2, #1
+ 80001b8:	4893      	ldr	r0, [pc, #588]	; (8000408 <fsm_automatic_run+0x2bc>)
+ 80001ba:	6001      	str	r1, [r0, #0]
+ 80001bc:	4611      	mov	r1, r2
+ 80001be:	4618      	mov	r0, r3
+ 80001c0:	f000 f9aa 	bl	8000518 <updateClockBuffer>
 		break;
  80001c4:	e116      	b.n	80003f4 <fsm_automatic_run+0x2a8>
 	case AUTO_RED_GREEN:
@@ -366,8 +366,8 @@ void fsm_automatic_run(){
  8000368:	4b23      	ldr	r3, [pc, #140]	; (80003f8 <fsm_automatic_run+0x2ac>)
  800036a:	2202      	movs	r2, #2
  800036c:	601a      	str	r2, [r3, #0]
-			setTimer1(timeGreen*1000);
- 800036e:	4b26      	ldr	r3, [pc, #152]	; (8000408 <fsm_automatic_run+0x2bc>)
+			setTimer1(defaultTimeGreen*1000);
+ 800036e:	4b23      	ldr	r3, [pc, #140]	; (80003fc <fsm_automatic_run+0x2b0>)
  8000370:	681b      	ldr	r3, [r3, #0]
  8000372:	f44f 727a 	mov.w	r2, #1000	; 0x3e8
  8000376:	fb02 f303 	mul.w	r3, r2, r3
@@ -856,8 +856,8 @@ int main(void)
  80006ae:	4b06      	ldr	r3, [pc, #24]	; (80006c8 <main+0x34>)
  80006b0:	2201      	movs	r2, #1
  80006b2:	601a      	str	r2, [r3, #0]
-  setTimer3(25);
- 80006b4:	2019      	movs	r0, #25
+  setTimer3(100);
+ 80006b4:	2064      	movs	r0, #100	; 0x64
  80006b6:	f000 f9cb 	bl	8000a50 <setTimer3>
   while (1)
   {
