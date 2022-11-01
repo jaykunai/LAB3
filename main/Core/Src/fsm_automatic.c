@@ -18,7 +18,6 @@ void fsm_automatic_run(){
 	case AUTO_RED_GREEN:
 		setTrafficRed();
 		setTrafficGreen1();
-		updateTimeRoad();
 		display();
 		if(timer1_flag == 1){
 			status = AUTO_RED_YELLOW;
@@ -28,7 +27,6 @@ void fsm_automatic_run(){
 	case AUTO_RED_YELLOW:
 		setTrafficRed();
 		setTrafficYellow1();
-		updateTimeRoad();
 		display();
 		if(timer1_flag == 1){
 			status = AUTO_GREEN_RED;
@@ -38,7 +36,6 @@ void fsm_automatic_run(){
 	case AUTO_GREEN_RED:
 		setTrafficGreen();
 		setTrafficRed1();
-		updateTimeRoad();
 		display();
 		if(timer1_flag == 1){
 			status = AUTO_YELLOW_RED;
@@ -48,10 +45,9 @@ void fsm_automatic_run(){
 	case AUTO_YELLOW_RED:
 		setTrafficYellow();
 		setTrafficRed1();
-		updateTimeRoad();
 		display();
 		if(timer1_flag == 1){
-			status  = AUTO_RED_GREEN;
+			status = AUTO_RED_GREEN;
 			setTimer1(timeGreen);
 		}
 		break;

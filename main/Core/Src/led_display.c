@@ -8,14 +8,32 @@
 #include "led_display.h"
 
 uint16_t led_matrix[MAX_MATRIX] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7D, 0x07, 0x7F, 0x6f};
-
+int counter1, counter2;
 //display led7Seg
 void display7SEG(int number){
 	uint16_t bit_var = led_matrix[number];
 	HAL_GPIO_WritePin(GPIOB, bit_var, RESET);
 	HAL_GPIO_WritePin(GPIOB, ~bit_var, SET);
 }
-int counter1 , counter2;
+void updateTimeRoad(){
+	//set up counter1 and counter2
+	if(status == AUTO_RED_GREEN){
+		counter1 = timeRed;
+		counter2 = timeGreen;
+	}
+	if(status == AUTO_RED_YELLOW){
+		counter1 = counter1 - timeGreen;
+		counter2 = timeYellow;
+	}
+	if(status == AUTO_GREEN_RED){
+		counter1 = timeGreen;
+		counter2 = timeRed;
+	}
+	if(status == AUTO_YELLOW_RED){
+		counter1 = timeYellow;
+		counter2 = counter2 - timeGreen;
+	}
+}
 int index_led = 0;
 int led_buffer[MAX_BUFF] = {0,5,0,3};
 void update7SEG(int index){
@@ -66,42 +84,27 @@ void updateClockBuffer(){
 			led_buffer[2] = counter2 / 10;
 		}
 }
-void updateTimeRoad(){
-	//set up counter1 and counter2
-	if(status == AUTO_RED_GREEN){
-		counter1 = timeRed;
-		counter2 = timeGreen;
+void countDown(){
+	if(counter1 >= 0){
+		counter1--;
+		if(counter1 < 0) return;
 	}
-	if(status == AUTO_RED_YELLOW){
-		counter2 = timeYellow;
+	if(counter2 >= 0){
+		counter2--;
+		if(counter2 < 0) return;
 	}
-	if(status == AUTO_GREEN_RED){
-		counter1 = timeGreen;
-		counter2 = timeRed;
-	}
-	if(status == AUTO_YELLOW_RED){
-		counter1 = timeYellow;
-	}
+	updateClockBuffer();
+	setTimer2(1000);
 }
 void display(){
-	// decrease counter1 && counter2
-//	updateTimeRoad();
-	if(timer2_flag == 1){
-//		if(counter1 > 0){
-			counter1--;
-//			if(counter1 == 0) updateTimeRoad();
-//		}
-//		if(counter2 > 0) {
-			counter2--;
-//			if(counter2 == 0) updateTimeRoad();
-//		}
-		updateClockBuffer();
-		setTimer2(1000);
-	}
+     // decrease counter1 && counter2
 	// display time in LED 7 SEGMENT
+	countDown();
 	if(timer3_flag == 1){
 		update7SEG(index_led++);
 		if(index_led > 3) index_led = 0;
 		setTimer3(250);
 	}
 }
+
+
