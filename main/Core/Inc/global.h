@@ -16,6 +16,9 @@
 extern int timeRed;
 extern int timeGreen;
 extern int timeYellow;
+extern int defaultTimeRed;
+extern int defaultTimeGreen;
+extern int defaultTimeYellow;
 
 #define INIT 1
 #define AUTO_RED_GREEN 2

@@ -8,34 +8,32 @@
 #include "led_display.h"
 
 uint16_t led_matrix[MAX_MATRIX] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7D, 0x07, 0x7F, 0x6f};
-int counter1, counter2;
-//display led7Seg
+int index_led = 0;
+int led_buffer[MAX_BUFF] = {0,5,0,3};
 void display7SEG(int number){
 	uint16_t bit_var = led_matrix[number];
 	HAL_GPIO_WritePin(GPIOB, bit_var, RESET);
 	HAL_GPIO_WritePin(GPIOB, ~bit_var, SET);
 }
-void updateTimeRoad(){
-	//set up counter1 and counter2
-	if(status == AUTO_RED_GREEN){
-		counter1 = timeRed;
-		counter2 = timeGreen;
+void updateClockBuffer(int counter1, int counter2){
+	if(counter1 >= 0 && counter1 <=9){
+		led_buffer[0] = 0;
+		led_buffer[1] = counter1;
 	}
-	if(status == AUTO_RED_YELLOW){
-		counter1 = counter1 - timeGreen;
-		counter2 = timeYellow;
+	if(counter1 >=10 && counter1 <=99){
+		led_buffer[1] = counter1 % 10;
+		led_buffer[0] = counter1 / 10;
 	}
-	if(status == AUTO_GREEN_RED){
-		counter1 = timeGreen;
-		counter2 = timeRed;
-	}
-	if(status == AUTO_YELLOW_RED){
-		counter1 = timeYellow;
-		counter2 = counter2 - timeGreen;
-	}
+	if(counter2 >= 0 && counter2 <=9){
+			led_buffer[2] = 0;
+			led_buffer[3] = counter2;
+		}
+	if(counter2 >=10 && counter2 <=99){
+			led_buffer[3] = counter2 % 10;
+			led_buffer[2] = counter2 / 10;
+		}
 }
-int index_led = 0;
-int led_buffer[MAX_BUFF] = {0,5,0,3};
+
 void update7SEG(int index){
 	switch(index){
 	case 0:
@@ -66,45 +64,12 @@ void update7SEG(int index){
 		break;
 	}
 }
-void updateClockBuffer(){
-	if(counter1 >= 0 && counter1 <=9){
-		led_buffer[0] = 0;
-		led_buffer[1] = counter1;
-	}
-	if(counter1 >=10 && counter1 <=99){
-		led_buffer[1] = counter1 % 10;
-		led_buffer[0] = counter1 / 10;
-	}
-	if(counter2 >= 0 && counter2 <=9){
-			led_buffer[2] = 0;
-			led_buffer[3] = counter2;
-		}
-	if(counter2 >=10 && counter2 <=99){
-			led_buffer[3] = counter2 % 10;
-			led_buffer[2] = counter2 / 10;
-		}
-}
-void countDown(){
-	if(counter1 >= 0){
-		counter1--;
-		if(counter1 < 0) return;
-	}
-	if(counter2 >= 0){
-		counter2--;
-		if(counter2 < 0) return;
-	}
-	updateClockBuffer();
-	setTimer2(1000);
-}
-void display(){
-     // decrease counter1 && counter2
+
+void scanLed(){
 	// display time in LED 7 SEGMENT
-	countDown();
 	if(timer3_flag == 1){
 		update7SEG(index_led++);
 		if(index_led > 3) index_led = 0;
 		setTimer3(250);
 	}
 }
-
-

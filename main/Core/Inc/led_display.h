@@ -14,10 +14,6 @@
 #define MAX_BUFF 4
 
 void display7SEG(int number);
-void display();
-void updateTimeRoad();
-
-void update7Seg(int index);
-
+void scanLed();
 
 #endif /* INC_LED_DISPLAY_H_ */

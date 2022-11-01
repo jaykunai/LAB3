@@ -25,6 +25,7 @@
 #include "input_processing.h"
 #include "input_reading.h"
 #include "fsm_automatic.h"
+#include "led_display.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -95,10 +96,12 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   status = INIT;
+  setTimer3(250);
   while (1)
   {
     /* USER CODE END WHILE */
 	  fsm_automatic_run();
+	  scanLed();
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

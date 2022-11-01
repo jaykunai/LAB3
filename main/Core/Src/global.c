@@ -7,6 +7,10 @@
 
 #include "global.h"
 int status = 0;
-int timeRed = 5000;
-int timeGreen = 3000;
-int timeYellow = 2000;
+int timeRed = 5;
+int timeGreen = 3;
+int timeYellow = 2;
+
+int defaultTimeRed = 5;
+int defaultTimeGreen = 3;
+int defaultTimeYellow = 2;
