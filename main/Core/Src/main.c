@@ -22,10 +22,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "input_processing.h"
 #include "input_reading.h"
 #include "fsm_automatic.h"
 #include "led_display.h"
+#include "fsm_manual.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -100,6 +100,7 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  fsm_manual_run();
 	  fsm_automatic_run();
 	  scanLed();
     /* USER CODE BEGIN 3 */

@@ -12,7 +12,10 @@
 #include "timer.h"
 #include "input_processing.h"
 #include "input_reading.h"
+#include "main.h"
+#include "traffic.h"
+#include "led_display.h"
 
-void fsm_manual_run(void);
+void fsm_manual_run();
 
 #endif /* INC_FSM_MANUAL_H_ */

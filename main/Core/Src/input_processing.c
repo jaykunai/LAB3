@@ -8,7 +8,7 @@
 #include "main.h"
 #include "input_reading.h"
 
-enum ButtonState{BUTTON_RELEASED, BUTTON_PRESSED, BUTTON_PRESSED_MORE_THAN_1_SECOND} ;
+enum ButtonState{BUTTON_RELEASED, BUTTON_PRESSED, BUTTON_PRESSED_MORE_THAN_1_SECOND};
 enum ButtonState buttonState = BUTTON_RELEASED;
 void fsm_for_input_processing(){
 	switch(buttonState){

@@ -30,7 +30,12 @@ void fsm_automatic_run(){
 		if(timer2_flag == 1){
 			updateClockBuffer(timeRed--, timeGreen--);
 			setTimer2(1000);
-			}
+		}
+//		 if button1 is pressed, move to mode2
+		if(is_button_pressed(0)){
+			// all single led are blinking
+			status = MAN_MODE2;
+		}
 		break;
 	case AUTO_RED_YELLOW:
 		setTrafficRed();
@@ -47,6 +52,17 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeRed--, timeYellow--);
 			setTimer2(1000);
 		}
+//		 if button1 is pressed, move to mode2
+		if(is_button_pressed(0)){
+			// all single led are blinking
+			status = MAN_MODE2;
+			setTrafficRed();
+			setTrafficRed1();
+			setTimer1(250);// 2Hz
+			//display value and mode in 4 LED7SEG
+			timeRed = defaultTimeRed;
+//			updateClockBuffer(1, defaultTimeRed);
+		}
 		break;
 	case AUTO_GREEN_RED:
 		setTrafficGreen();
@@ -61,6 +77,17 @@ void fsm_automatic_run(){
 		if(timer2_flag == 1){
 			updateClockBuffer(timeGreen--, timeRed--);
 			setTimer2(1000);
+		}
+		// if button1 is pressed, move to mode2
+		if(is_button_pressed(0)){
+			// all single led are blinking
+			status = MAN_MODE2;
+			setTrafficRed();
+			setTrafficRed1();
+			setTimer1(250);// 2Hz
+			//display value and mode in 4 LED7SEG
+			timeRed = defaultTimeRed;
+//			updateClockBuffer(1, defaultTimeRed);
 		}
 		break;
 	case AUTO_YELLOW_RED:
@@ -77,6 +104,17 @@ void fsm_automatic_run(){
 		if(timer2_flag == 1){
 			updateClockBuffer(timeYellow--, timeRed--);
 			setTimer2(1000);
+		}
+		// if button1 is pressed, move to mode2
+		if(is_button_pressed(0)){
+			// all single led are blinking
+			status = MAN_MODE2;
+			setTrafficRed();
+			setTrafficRed1();
+			setTimer1(250);// 2Hz
+			//display value and mode in 4 LED7SEG
+			timeRed = defaultTimeRed;
+//			updateClockBuffer(1, defaultTimeRed);
 		}
 		break;
 	default:

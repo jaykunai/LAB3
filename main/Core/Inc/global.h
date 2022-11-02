@@ -26,10 +26,10 @@ extern int defaultTimeYellow;
 #define AUTO_GREEN_RED 4
 #define AUTO_YELLOW_RED 5
 
-#define MAN_MODE1 11
-#define MAN_MODE2 12
-#define MAN_MODE3 13
-#define MAN_MODE4 14
+#define MAN_MODE1 10
+#define MAN_MODE2 11
+#define MAN_MODE3 12
+#define MAN_MODE4 13
 
 
 extern int status;

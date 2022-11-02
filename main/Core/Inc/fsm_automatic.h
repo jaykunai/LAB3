@@ -9,7 +9,6 @@
 #define INC_FSM_AUTOMATIC_H_
 
 #include "input_reading.h"
-#include "input_processing.h"
 #include "led_display.h"
 #include "timer.h"
 #include "main.h"

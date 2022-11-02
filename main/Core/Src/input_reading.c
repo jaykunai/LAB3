@@ -9,7 +9,7 @@
 #include "input_reading.h"
 
 //we aim to work with more than one buttons
-#define N0_OF_BUTTONS 				       1
+#define N0_OF_BUTTONS 				       3
 //timer interrupt duration is 10ms, so to pass 1 second,
 //we need to jump to the interrupt service routine 100 time
 #define DURATION_FOR_AUTO_INCREASING	   100
@@ -17,7 +17,7 @@
 #define BUTTON_IS_RELEASED                 GPIO_PIN_SET
 //the buffer that the final result is stored after
 //debouncing
-static GPIO_PinState buttonBuffer[N0_OF_BUTTONS];
+static GPIO_PinState buttonBuffer[N0_OF_BUTTONS] = {1};
 //we define two buffers for debouncing
 static GPIO_PinState debounceButtonBuffer1[N0_OF_BUTTONS];
 static GPIO_PinState debounceButtonBuffer2[N0_OF_BUTTONS];
@@ -29,7 +29,7 @@ static uint16_t counterForButtonPress1s[N0_OF_BUTTONS];
 void button_reading(void){
 	for(uint8_t i = 0; i < N0_OF_BUTTONS; i++){
 		debounceButtonBuffer2[i] = debounceButtonBuffer1[i];
-		debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(BUTTON_1_GPIO_Port, BUTTON_1_Pin);
+		debounceButtonBuffer1[i] = HAL_GPIO_ReadPin(BUTTON_0_GPIO_Port, BUTTON_0_Pin);
 		if(debounceButtonBuffer1[i] == debounceButtonBuffer2[i])
 			buttonBuffer[i] = debounceButtonBuffer1[i];
 			if(buttonBuffer[i] == BUTTON_IS_PRESSED){
