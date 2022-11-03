@@ -15,6 +15,11 @@
 extern int timeRed;
 extern int timeGreen;
 extern int timeYellow;
+
+extern int tempRed;
+extern int tempGreen;
+extern int tempYellow;
+
 extern int defaultTimeRed;
 extern int defaultTimeGreen;
 extern int defaultTimeYellow;

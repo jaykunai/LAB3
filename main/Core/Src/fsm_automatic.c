@@ -15,6 +15,9 @@ void fsm_automatic_run(){
 		setTimer1(defaultTimeGreen*1000);
 		timeRed = defaultTimeRed;
 		timeGreen = defaultTimeGreen;
+		tempRed = defaultTimeRed;
+		tempYellow = defaultTimeYellow;
+		tempGreen = defaultTimeGreen;
 		setTimer2(1000);
 		updateClockBuffer(timeRed--, timeGreen--);
 		break;
@@ -32,10 +35,9 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeRed--, timeGreen--);
 			setTimer2(1000);
 		}
-		if(is_button_pressed(0)){
+		if(is_button_pressed(0) == 1){
 			setTimer1(250);
 			status = MAN_MODE2;
-			updateClockBuffer(1, defaultTimeRed);
 		}
 		break;
 	case AUTO_RED_YELLOW:
@@ -53,11 +55,10 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeRed--, timeYellow--);
 			setTimer2(1000);
 		}
-//		if(is_button_pressed(0)){
-//			setTimer1(250);
-//			status = MAN_MODE2;
-//			updateClockBuffer(1, defaultTimeRed);
-//		}
+		if(is_button_pressed(0) == 1){
+			setTimer1(250);
+			status = MAN_MODE2;
+		}
 		break;
 	case AUTO_GREEN_RED:
 		setTrafficGreen();
@@ -73,10 +74,9 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeGreen--, timeRed--);
 			setTimer2(1000);
 		}
-		if(is_button_pressed(0)){
+		if(is_button_pressed(0) == 1){
 			setTimer1(250);
-			status = MAN_MODE3;
-			updateClockBuffer(1, defaultTimeRed);
+			status = MAN_MODE2;
 		}
 		break;
 	case AUTO_YELLOW_RED:
@@ -94,11 +94,10 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeYellow--, timeRed--);
 			setTimer2(1000);
 		}
-//		if(is_button_pressed(0)){
-//			setTimer1(250);
-//			status = MAN_MODE4;
-//			updateClockBuffer(1, defaultTimeRed);
-//		}
+		if(is_button_pressed(0) == 1){
+			setTimer1(250);
+			status = MAN_MODE2;
+		}
 		break;
 	default:
 		break;

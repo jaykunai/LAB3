@@ -13,12 +13,12 @@
 //timer interrupt duration is 10ms, so to pass 1 second,
 //we need to jump to the interrupt service routine 100 time
 #define DURATION_FOR_AUTO_INCREASING	100
-#define BUTTON_IS_PRESSED   0
-#define BUTTON_IS_RELEASED   1
+#define BUTTON_IS_PRESSED   GPIO_PIN_RESET
+#define BUTTON_IS_RELEASED   GPIO_PIN_SET
 #define BUTTON_PRESSED_MORE_THAN_1s	2
 
-#define BUTTON_PRESSED  GPIO_PIN_RESET //1
-#define BUTTON_RELEASED GPIO_PIN_SET //1
+#define BUTTON_PRESSED GPIO_PIN_RESET // 0
+#define BUTTON_RELEASED GPIO_PIN_SET  // 1
 //the buffer that the final result is stored after
 //debouncing
 static GPIO_PinState buttonBuffer[N0_OF_BUTTONS];
@@ -30,9 +30,9 @@ static GPIO_PinState debounceButtonBuffer3[N0_OF_BUTTONS];
 static uint8_t flagForButtonPress1s[N0_OF_BUTTONS];
 //we define counter for automatically increasing the value
 //after the button is pressed more than 1 second.
-static uint16_t counterForButtonPress1s[N0_OF_BUTTONS] = {0};
-static int buttonState[N0_OF_BUTTONS] = {BUTTON_IS_RELEASED};
-static int button_flag[N0_OF_BUTTONS] = {0};
+static uint16_t counterForButtonPress1s[N0_OF_BUTTONS];
+static int buttonState[N0_OF_BUTTONS] = {BUTTON_IS_RELEASED, BUTTON_IS_RELEASED, BUTTON_IS_RELEASED};
+static int button_flag[N0_OF_BUTTONS];
 void getKeyProcess(int index){// turn on button_flag
 	if(index >= 0 && index < N0_OF_BUTTONS){
 		button_flag[index] = 1;
@@ -43,7 +43,7 @@ void get1sFlag(int index){
 			flagForButtonPress1s[index] = 1;
 		}
 }
-void fsm_input_processing(int index){
+void fsm_input_processing(GPIO_PinState buttonBuffer[], int index){
 	switch(buttonState[index]){
 	case BUTTON_IS_PRESSED:
 		//if button is pressed more than 1s
@@ -67,7 +67,7 @@ void fsm_input_processing(int index){
 		//button is pressed
 		if(buttonBuffer[index] == BUTTON_PRESSED){
 			buttonState[index] = BUTTON_IS_PRESSED;
-//			getKeyProcess(index);
+			getKeyProcess(index);
 		}
 		break;
 	case BUTTON_PRESSED_MORE_THAN_1s:
@@ -109,8 +109,56 @@ void button_reading(void){
 		}
 		if((debounceButtonBuffer3[i] == debounceButtonBuffer2[i]) && (debounceButtonBuffer2[i] == debounceButtonBuffer1[i])){
 			buttonBuffer[i] = debounceButtonBuffer3[i];
+//			if(buttonBuffer[i] == BUTTON_PRESSED){
+//				getKeyProcess(i);
+//			}
+//			switch(buttonState[i]){
+//			case BUTTON_IS_PRESSED:
+//				//if button is pressed more than 1s
+//				if(counterForButtonPress1s[i] < DURATION_FOR_AUTO_INCREASING){
+//					counterForButtonPress1s[i]++;
+//					if(counterForButtonPress1s[i] == DURATION_FOR_AUTO_INCREASING){
+//						buttonState[i] = BUTTON_PRESSED_MORE_THAN_1s;
+//						counterForButtonPress1s[i] = 0;
+//						getKeyProcess(i);
+//						get1sFlag(i);
+//					}
+//				}
+//				// button is release
+//				if(buttonBuffer[i] == BUTTON_RELEASED){
+//					buttonState[i] = BUTTON_IS_RELEASED;
+//					counterForButtonPress1s[i] = 0;
+//				}
+//				break;
+//				//bug
+//			case BUTTON_IS_RELEASED:
+//				//button is pressed
+//				if(buttonBuffer[i] == BUTTON_PRESSED){
+//					buttonState[i] = BUTTON_IS_PRESSED;
+//					getKeyProcess(i);
+//				}
+//				break;
+//			case BUTTON_PRESSED_MORE_THAN_1s:
+//				if(counterForButtonPress1s[i] < DURATION_FOR_AUTO_INCREASING){
+//							counterForButtonPress1s[i]++;
+//							if(counterForButtonPress1s[i] == DURATION_FOR_AUTO_INCREASING){
+//								buttonState[i] = BUTTON_PRESSED_MORE_THAN_1s;
+//								counterForButtonPress1s[i] = 0;
+//								getKeyProcess(i);
+//								get1sFlag(i);
+//							}
+//						}
+//				if(buttonBuffer[i] == BUTTON_RELEASED){
+//					buttonState[i] = BUTTON_IS_RELEASED;
+//					counterForButtonPress1s[i] = 0;
+//				}
+//				break;
+//			default:
+//				break;
+//			}
+					fsm_input_processing(buttonBuffer,i);
 		}
-		fsm_input_processing(i);
+
 	}
 }
 int is_button_pressed(uint8_t index){

@@ -100,8 +100,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  fsm_manual_run();
 	  fsm_automatic_run();
+	  fsm_manual_run();
 	  scanLed();
     /* USER CODE BEGIN 3 */
   }

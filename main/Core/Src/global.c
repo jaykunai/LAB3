@@ -14,3 +14,7 @@ int timeYellow = 2;
 int defaultTimeRed = 5;
 int defaultTimeGreen = 3;
 int defaultTimeYellow = 2;
+
+int tempRed = 5;
+int tempGreen = 3;
+int tempYellow = 2;
