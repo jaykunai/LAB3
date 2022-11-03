@@ -62,7 +62,6 @@ void fsm_input_processing(GPIO_PinState buttonBuffer[], int index){
 			counterForButtonPress1s[index] = 0;
 		}
 		break;
-		//bug
 	case BUTTON_IS_RELEASED:
 		//button is pressed
 		if(buttonBuffer[index] == BUTTON_PRESSED){
@@ -109,54 +108,7 @@ void button_reading(void){
 		}
 		if((debounceButtonBuffer3[i] == debounceButtonBuffer2[i]) && (debounceButtonBuffer2[i] == debounceButtonBuffer1[i])){
 			buttonBuffer[i] = debounceButtonBuffer3[i];
-//			if(buttonBuffer[i] == BUTTON_PRESSED){
-//				getKeyProcess(i);
-//			}
-//			switch(buttonState[i]){
-//			case BUTTON_IS_PRESSED:
-//				//if button is pressed more than 1s
-//				if(counterForButtonPress1s[i] < DURATION_FOR_AUTO_INCREASING){
-//					counterForButtonPress1s[i]++;
-//					if(counterForButtonPress1s[i] == DURATION_FOR_AUTO_INCREASING){
-//						buttonState[i] = BUTTON_PRESSED_MORE_THAN_1s;
-//						counterForButtonPress1s[i] = 0;
-//						getKeyProcess(i);
-//						get1sFlag(i);
-//					}
-//				}
-//				// button is release
-//				if(buttonBuffer[i] == BUTTON_RELEASED){
-//					buttonState[i] = BUTTON_IS_RELEASED;
-//					counterForButtonPress1s[i] = 0;
-//				}
-//				break;
-//				//bug
-//			case BUTTON_IS_RELEASED:
-//				//button is pressed
-//				if(buttonBuffer[i] == BUTTON_PRESSED){
-//					buttonState[i] = BUTTON_IS_PRESSED;
-//					getKeyProcess(i);
-//				}
-//				break;
-//			case BUTTON_PRESSED_MORE_THAN_1s:
-//				if(counterForButtonPress1s[i] < DURATION_FOR_AUTO_INCREASING){
-//							counterForButtonPress1s[i]++;
-//							if(counterForButtonPress1s[i] == DURATION_FOR_AUTO_INCREASING){
-//								buttonState[i] = BUTTON_PRESSED_MORE_THAN_1s;
-//								counterForButtonPress1s[i] = 0;
-//								getKeyProcess(i);
-//								get1sFlag(i);
-//							}
-//						}
-//				if(buttonBuffer[i] == BUTTON_RELEASED){
-//					buttonState[i] = BUTTON_IS_RELEASED;
-//					counterForButtonPress1s[i] = 0;
-//				}
-//				break;
-//			default:
-//				break;
-//			}
-					fsm_input_processing(buttonBuffer,i);
+			fsm_input_processing(buttonBuffer,i);
 		}
 
 	}

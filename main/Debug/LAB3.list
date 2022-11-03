@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  16 .debug_macro  000170a2  00000000  00000000  0002cdc8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0000c610  00000000  00000000  00043e6a  2**0
+ 17 .debug_line   0000c60c  00000000  00000000  00043e6a  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000824bd  00000000  00000000  0005047a  2**0
+ 18 .debug_str    000824bd  00000000  00000000  00050476  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000053  00000000  00000000  000d2937  2**0
+ 19 .comment      00000053  00000000  00000000  000d2933  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  0000291c  00000000  00000000  000d298c  2**2
+ 20 .debug_frame  0000291c  00000000  00000000  000d2988  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1162,12 +1162,7 @@ void button_reading(void){
  8000902:	5c89      	ldrb	r1, [r1, r2]
  8000904:	4a0c      	ldr	r2, [pc, #48]	; (8000938 <button_reading+0xd8>)
  8000906:	54d1      	strb	r1, [r2, r3]
-//				}
-//				break;
-//			default:
-//				break;
-//			}
-					fsm_input_processing(buttonBuffer,i);
+			fsm_input_processing(buttonBuffer,i);
  8000908:	79fb      	ldrb	r3, [r7, #7]
  800090a:	4619      	mov	r1, r3
  800090c:	480a      	ldr	r0, [pc, #40]	; (8000938 <button_reading+0xd8>)
