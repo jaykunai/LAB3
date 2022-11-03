@@ -25,7 +25,7 @@ Core/Src/led_display.o: ../Core/Src/led_display.c \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_tim_ex.h \
  ../Core/Inc/global.h ../Core/Inc/timer.h ../Core/Inc/input_reading.h \
- ../Core/Inc/traffic.h ../Core/Inc/input_processing.h
+ ../Core/Inc/traffic.h
 
 ../Core/Inc/led_display.h:
 
@@ -86,5 +86,3 @@ Core/Src/led_display.o: ../Core/Src/led_display.c \
 ../Core/Inc/input_reading.h:
 
 ../Core/Inc/traffic.h:
-
-../Core/Inc/input_processing.h:

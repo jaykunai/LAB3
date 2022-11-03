@@ -10,7 +10,6 @@
 
 #include "global.h"
 #include "timer.h"
-#include "input_processing.h"
 #include "input_reading.h"
 #include "main.h"
 #include "traffic.h"

@@ -7,6 +7,7 @@
 
 #include "fsm_automatic.h"
 
+
 void fsm_automatic_run(){
 	switch(status){
 	case INIT:
@@ -31,10 +32,10 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeRed--, timeGreen--);
 			setTimer2(1000);
 		}
-//		 if button1 is pressed, move to mode2
 		if(is_button_pressed(0)){
-			// all single led are blinking
+			setTimer1(250);
 			status = MAN_MODE2;
+			updateClockBuffer(1, defaultTimeRed);
 		}
 		break;
 	case AUTO_RED_YELLOW:
@@ -52,17 +53,11 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeRed--, timeYellow--);
 			setTimer2(1000);
 		}
-//		 if button1 is pressed, move to mode2
-		if(is_button_pressed(0)){
-			// all single led are blinking
-			status = MAN_MODE2;
-			setTrafficRed();
-			setTrafficRed1();
-			setTimer1(250);// 2Hz
-			//display value and mode in 4 LED7SEG
-			timeRed = defaultTimeRed;
+//		if(is_button_pressed(0)){
+//			setTimer1(250);
+//			status = MAN_MODE2;
 //			updateClockBuffer(1, defaultTimeRed);
-		}
+//		}
 		break;
 	case AUTO_GREEN_RED:
 		setTrafficGreen();
@@ -78,16 +73,10 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeGreen--, timeRed--);
 			setTimer2(1000);
 		}
-		// if button1 is pressed, move to mode2
 		if(is_button_pressed(0)){
-			// all single led are blinking
-			status = MAN_MODE2;
-			setTrafficRed();
-			setTrafficRed1();
-			setTimer1(250);// 2Hz
-			//display value and mode in 4 LED7SEG
-			timeRed = defaultTimeRed;
-//			updateClockBuffer(1, defaultTimeRed);
+			setTimer1(250);
+			status = MAN_MODE3;
+			updateClockBuffer(1, defaultTimeRed);
 		}
 		break;
 	case AUTO_YELLOW_RED:
@@ -105,17 +94,11 @@ void fsm_automatic_run(){
 			updateClockBuffer(timeYellow--, timeRed--);
 			setTimer2(1000);
 		}
-		// if button1 is pressed, move to mode2
-		if(is_button_pressed(0)){
-			// all single led are blinking
-			status = MAN_MODE2;
-			setTrafficRed();
-			setTrafficRed1();
-			setTimer1(250);// 2Hz
-			//display value and mode in 4 LED7SEG
-			timeRed = defaultTimeRed;
+//		if(is_button_pressed(0)){
+//			setTimer1(250);
+//			status = MAN_MODE4;
 //			updateClockBuffer(1, defaultTimeRed);
-		}
+//		}
 		break;
 	default:
 		break;

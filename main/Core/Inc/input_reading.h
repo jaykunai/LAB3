@@ -10,13 +10,11 @@
 
 #include "main.h"
 
+
 void button_reading(void);
 
-unsigned char is_button_pressed(unsigned char index);
-unsigned char is_button_pressed_1s(unsigned char index);
+int is_button_pressed(uint8_t index);
+int is_button_pressed_1s(uint8_t index);
 
-extern int button0_flag;
-extern int button1_flag;
-extern int button2_flag;
 
 #endif /* INC_INPUT_READING_H_ */

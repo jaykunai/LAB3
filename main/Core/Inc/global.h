@@ -10,7 +10,6 @@
 
 #include "timer.h"
 #include "traffic.h"
-#include "input_processing.h"
 #include "input_reading.h"
 
 extern int timeRed;
