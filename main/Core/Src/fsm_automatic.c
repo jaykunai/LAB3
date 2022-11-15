@@ -10,6 +10,10 @@
 
 void fsm_automatic_run(){
 	switch(status){
+	/*in INIT status, it status is assigned AUTO_RED_GREEN
+	assign timeRed, timeGreen, timeYellow
+	tempRed, tempYellow, tempGreen corresponding value
+	*/
 	case INIT:
 		status = AUTO_RED_GREEN;
 		setTimer1(defaultTimeGreen*1000);
@@ -22,6 +26,11 @@ void fsm_automatic_run(){
 		updateClockBuffer(timeRed--, timeGreen--);
 		break;
 	case AUTO_RED_GREEN:
+	/*
+	 * in this status, red led in road 1 is ON
+	 * and green led in road 2 is off
+	 * if timer1_flag == 1, move to  AUTO_RED_YELLOW status
+	 */
 		setTrafficRed();
 		setTrafficGreen1();
 		if(timer1_flag == 1){

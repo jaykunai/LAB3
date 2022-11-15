@@ -33,6 +33,7 @@ static uint8_t flagForButtonPress1s[N0_OF_BUTTONS];
 static uint16_t counterForButtonPress1s[N0_OF_BUTTONS];
 static int buttonState[N0_OF_BUTTONS] = {BUTTON_IS_RELEASED, BUTTON_IS_RELEASED, BUTTON_IS_RELEASED};
 static int button_flag[N0_OF_BUTTONS];
+
 void getKeyProcess(int index){// turn on button_flag
 	if(index >= 0 && index < N0_OF_BUTTONS){
 		button_flag[index] = 1;
@@ -56,7 +57,7 @@ void fsm_input_processing(GPIO_PinState buttonBuffer[], int index){
 				get1sFlag(index);
 			}
 		}
-		// button is release
+		//button is release
 		if(buttonBuffer[index] == BUTTON_RELEASED){
 			buttonState[index] = BUTTON_IS_RELEASED;
 			counterForButtonPress1s[index] = 0;
@@ -108,11 +109,13 @@ void button_reading(void){
 		}
 		if((debounceButtonBuffer3[i] == debounceButtonBuffer2[i]) && (debounceButtonBuffer2[i] == debounceButtonBuffer1[i])){
 			buttonBuffer[i] = debounceButtonBuffer3[i];
+			//call fsm_input_processing() function
 			fsm_input_processing(buttonBuffer,i);
 		}
 
 	}
 }
+//determine whether a button is pressed or not
 int is_button_pressed(uint8_t index){
 	if(index >= N0_OF_BUTTONS) return 0;
 	if(button_flag[index] == 1){
@@ -122,6 +125,7 @@ int is_button_pressed(uint8_t index){
 	}
 	return 0;
 }
+//determine whether a button is pressed more than 1s or not
 int  is_button_pressed_1s(uint8_t index){
 	if(index >= N0_OF_BUTTONS) return 0;
 	if(button_flag[index] == 1 && flagForButtonPress1s[index] == 1){

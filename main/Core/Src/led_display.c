@@ -10,19 +10,21 @@
 uint16_t led_matrix[MAX_MATRIX] = {0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7D, 0x07, 0x7F, 0x6f};
 int index_led = 0;
 int led_buffer[MAX_BUFF] = {0,0,0,0};
+//display LED 7 segment
 void display7SEG(int number){
 	uint16_t bit_var = led_matrix[number];
 	HAL_GPIO_WritePin(GPIOB, bit_var, RESET);
 	HAL_GPIO_WritePin(GPIOB, ~bit_var, SET);
 }
+//if counter1 < 10, example value = 2, led7 1 display 0 and led 7 segment 2 display 2
+//if counter1 > 10, ex value = 12, led7 1 display 1 and led 7 segment 2 display 2
 void updateClockBuffer(int counter1, int counter2){
-
 	    led_buffer[0] = counter1 / 10;
 		led_buffer[1] = counter1 % 10;
 		led_buffer[2] = counter2 / 10;
 		led_buffer[3] = counter2 % 10;
  }
-
+// show which led 7 segment is ON and the value it display
 void update7SEG(int index){
 	switch(index){
 	case 0:
@@ -53,9 +55,8 @@ void update7SEG(int index){
 		break;
 	}
 }
-
+// display time in LED 7 SEGMENT
 void scanLed(){
-	// display time in LED 7 SEGMENT
 	if(timer3_flag == 1){
 		update7SEG(index_led++);
 		if(index_led > 3) index_led = 0;
