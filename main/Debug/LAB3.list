@@ -701,11 +701,11 @@ void fsm_manual_run(){
  80005b6:	4a4a      	ldr	r2, [pc, #296]	; (80006e0 <fsm_manual_run+0x220>)
  80005b8:	6013      	str	r3, [r2, #0]
 		}
-		updateClockBuffer(1, defaultTimeRed);
+		updateClockBuffer(2, defaultTimeRed);
  80005ba:	4b49      	ldr	r3, [pc, #292]	; (80006e0 <fsm_manual_run+0x220>)
  80005bc:	681b      	ldr	r3, [r3, #0]
  80005be:	4619      	mov	r1, r3
- 80005c0:	2001      	movs	r0, #1
+ 80005c0:	2002      	movs	r0, #2
  80005c2:	f000 fa19 	bl	80009f8 <updateClockBuffer>
 		break;
  80005c6:	e084      	b.n	80006d2 <fsm_manual_run+0x212>

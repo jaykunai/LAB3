@@ -44,7 +44,7 @@ void fsm_manual_run(){
 		if(is_button_pressed(2) == 1){
 			defaultTimeRed = tempRed ;
 		}
-		updateClockBuffer(1, defaultTimeRed);
+		updateClockBuffer(2, defaultTimeRed);
 		break;
 	case MAN_MODE3:
 		// only yellow led in both road1 and road2 are ON, other led are OFF
