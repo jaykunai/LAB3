@@ -33,12 +33,13 @@ static uint8_t flagForButtonPress1s[N0_OF_BUTTONS];
 static uint16_t counterForButtonPress1s[N0_OF_BUTTONS];
 static int buttonState[N0_OF_BUTTONS] = {BUTTON_IS_RELEASED, BUTTON_IS_RELEASED, BUTTON_IS_RELEASED};
 static int button_flag[N0_OF_BUTTONS];
-
-void getKeyProcess(int index){// turn on button_flag
+// this function turn on button_flag
+void getKeyProcess(int index){
 	if(index >= 0 && index < N0_OF_BUTTONS){
 		button_flag[index] = 1;
 	}
 }
+// this function turn on flagForButtonPress1s
 void get1sFlag(int index){
 	if(index >= 0 && index < N0_OF_BUTTONS){
 			flagForButtonPress1s[index] = 1;
@@ -71,6 +72,8 @@ void fsm_input_processing(GPIO_PinState buttonBuffer[], int index){
 		}
 		break;
 	case BUTTON_PRESSED_MORE_THAN_1s:
+		// if button is pressed more than 1s and button is continued pressing
+		// it'll execute previous status
 		if(counterForButtonPress1s[index] < DURATION_FOR_AUTO_INCREASING){
 					counterForButtonPress1s[index]++;
 					if(counterForButtonPress1s[index] == DURATION_FOR_AUTO_INCREASING){
@@ -80,6 +83,7 @@ void fsm_input_processing(GPIO_PinState buttonBuffer[], int index){
 						get1sFlag(index);
 					}
 				}
+		//button is release
 		if(buttonBuffer[index] == BUTTON_RELEASED){
 			buttonState[index] = BUTTON_IS_RELEASED;
 			counterForButtonPress1s[index] = 0;

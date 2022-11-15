@@ -55,7 +55,7 @@ void update7SEG(int index){
 		break;
 	}
 }
-// display time in LED 7 SEGMENT
+// display time value in LED 7 SEGMENT
 void scanLed(){
 	if(timer3_flag == 1){
 		update7SEG(index_led++);

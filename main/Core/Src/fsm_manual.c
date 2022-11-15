@@ -10,8 +10,14 @@
 void fsm_manual_run(){
 	switch(status){
 	case MAN_MODE1:
-		// return INIT status INIT
-		status = INIT;
+		// return INIT status AUTO_RED_GREEN
+		setTimer1(defaultTimeGreen*1000);
+		setTimer2(1000);
+		timeRed = defaultTimeRed;
+		timeGreen = defaultTimeGreen;
+		tempYellow = defaultTimeYellow;
+		updateClockBuffer(timeRed--, timeGreen--);
+		status = AUTO_RED_GREEN;
 		break;
 	case MAN_MODE2:
 		// only red leds in both road1 and road2 are ON, other leds are OFF
@@ -20,13 +26,13 @@ void fsm_manual_run(){
 		// if button0 is pressed, status will move to MAN_MODE3
 		if(is_button_pressed(0) == 1){
 			status = MAN_MODE3;
-			setTimer1(250);
+			setTimer1(500);
 		}
 		//blinking red led
 		if(timer1_flag == 1){
 			HAL_GPIO_TogglePin(LED_RED_GPIO_Port, LED_RED_Pin);
 			HAL_GPIO_TogglePin(LED_RED1_GPIO_Port, LED_RED1_Pin);
-			setTimer1(250);
+			setTimer1(500);
 		}
 		//if button is pressed, tempRed value'll increase 1 unit
 		//if value overcome 99, it'll return 1
@@ -47,13 +53,13 @@ void fsm_manual_run(){
 		// if button0 is pressed, status will move to MAN_MODE4
 		if(is_button_pressed(0) == 1){
 			status = MAN_MODE4;
-			setTimer1(250);
+			setTimer1(500);
 		}
 		//blinking yellow led
 		if(timer1_flag == 1){
 			HAL_GPIO_TogglePin(LED_YELLOW1_GPIO_Port, LED_YELLOW1_Pin);
 			HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
-			setTimer1(250);
+			setTimer1(500);
 		}
 		//if button is pressed, tempYellow value'll increase 1 unit
 		//if value overcome 99, it'll return 1
@@ -70,12 +76,7 @@ void fsm_manual_run(){
 	case MAN_MODE4:
 		// if button0 is pressed, status will move to MAN_MODE1
 		if(is_button_pressed(0) == 1){
-			setTimer1(defaultTimeGreen*1000);
-			setTimer2(1000);
-			timeRed = defaultTimeRed;
-			timeGreen = defaultTimeGreen;
-			updateClockBuffer(timeRed--, timeGreen--);
-			status = AUTO_RED_GREEN;
+			status = MAN_MODE1;
 		}
 		// only green led in both road1 and road2 are ON, other led are OFF
 		setTrafficGreen();
@@ -84,7 +85,7 @@ void fsm_manual_run(){
 		if(timer1_flag == 1){
 			HAL_GPIO_TogglePin(LED_GREEN1_GPIO_Port, LED_GREEN1_Pin);
 			HAL_GPIO_TogglePin(LED_GREEN_GPIO_Port, LED_GREEN_Pin);
-			setTimer1(250);
+			setTimer1(500);
 		}
 		//if button is pressed, tempGreen value 'll increase 1 unit
 		//if value overcome 99, it'll return 1

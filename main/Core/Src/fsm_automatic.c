@@ -12,7 +12,7 @@ void fsm_automatic_run(){
 	switch(status){
 	/*in INIT status, it status is assigned AUTO_RED_GREEN
 	assign timeRed, timeGreen, timeYellow
-	tempRed, tempYellow, tempGreen corresponding value
+	tempRed, tempYellow, tempGreen to corresponding value
 	*/
 	case INIT:
 		status = AUTO_RED_GREEN;
@@ -29,7 +29,11 @@ void fsm_automatic_run(){
 	/*
 	 * in this status, red led in road 1 is ON
 	 * and green led in road 2 is off
-	 * if timer1_flag == 1, move to  AUTO_RED_YELLOW status
+	 * if timer1_flag == 1, status = AUTO_RED_YELLOW
+	 * and call updateClockBuffer to update value is displayed in led 7 Segment
+	 * with parameter is timeRed-- and timeYellow--
+	 * if timer2_flag = 1, update and decrease timeRed and timeGreen
+	 * if is_button_pressed(0) = 1, move to MAN_MODE2
 	 */
 		setTrafficRed();
 		setTrafficGreen1();
@@ -50,6 +54,15 @@ void fsm_automatic_run(){
 		}
 		break;
 	case AUTO_RED_YELLOW:
+		/*
+		 * in this status, red led in road 1 is ON
+		 * and Yellow led in road 2 is off
+		 * if timer1_flag == 1, status = AUTO_GREEN_RED
+		 * and call updateClockBuffer to update value is displayed in led 7 Segment
+		 * with parameter is timeGreen-- and timeRed--
+		 * if timer2_flag = 1, update and decrease timeRed and timeYelow
+		 * if is_button_pressed(0) = 1, move to MAN_MODE2
+		 */
 		setTrafficRed();
 		setTrafficYellow1();
 		if(timer1_flag == 1){
@@ -70,6 +83,15 @@ void fsm_automatic_run(){
 		}
 		break;
 	case AUTO_GREEN_RED:
+		/*
+		 * in this status, green led in road 1 is ON
+		 * and red led in road 2 is off
+		 * if timer1_flag == 1, status = AUTO_YELLOW_RED
+		 * and call updateClockBuffer to update value is displayed in led 7 Segment
+		 * with parameter is timeYelow-- and timeRed--
+		 * if timer2_flag = 1, update and decrease timeGreen and timeRed
+		 * if is_button_pressed(0) = 1, move to MAN_MODE2
+		 */
 		setTrafficGreen();
 		setTrafficRed1();
 		if(timer1_flag == 1){
@@ -89,6 +111,15 @@ void fsm_automatic_run(){
 		}
 		break;
 	case AUTO_YELLOW_RED:
+		/*
+		 * in this status, Yellow led in road 1 is ON
+		 * and red led in road 2 is off
+		 * if timer1_flag == 1, status = AUTO_RED_GREEN
+		 * and call updateClockBuffer to update value is displayed in led 7 Segment
+		 * with parameter is timeRed-- and timeGreen--
+		 * if timer2_flag = 1, update and decrease timeYellow and timeRed
+		 *  if is_button_pressed(0) = 1, move to MAN_MODE2
+		 */
 		setTrafficYellow();
 		setTrafficRed1();
 		if(timer1_flag == 1){
